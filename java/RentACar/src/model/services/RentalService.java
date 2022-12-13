@@ -18,6 +18,18 @@ public class RentalService {
         this.taxService = taxService;
     }
 
+        double valorDiaria;
+        String tipoDeVeiculo = getTipoVeiculo().toLowerCase();
+
+        valorDiaria = switch (tipoDeVeiculo) {
+            case "passeio" -> 495;
+            case "utilitario" -> 580;
+            case "esportivo" -> 700;
+            default -> throw new InvalidParameterException("Tipo de veiculo invalido!");
+        };
+
+        return valorDiaria * duracaoAluguel;
+    }
     public void processInvoice(CarRental carRental) {
 
         double minutes = Duration.between(carRental.getCheckIn(), carRental.getCheckOut()).toMinutes();
